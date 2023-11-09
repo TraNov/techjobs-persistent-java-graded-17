@@ -1,58 +1,71 @@
 package org.launchcode.techjobs.persistent.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Job {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    private String name;
-    private String employer;
-    private String skills;
+public class Job extends AbstractEntity{
+    @ManyToOne
+    private Employer employer;
+    @NotNull
+    @ManyToMany
+    private   List<Skill> skills = new ArrayList<Skill>();
+    //    Task 3
+//    Comment Out original code
+//    @Id
+//    @GeneratedValue
+//    private int id;
+//
+//    private String name;
+//    private String employer;
+//    private String skills;
 
 
     public Job() {
     }
 
     // Initialize the id and value fields.
-    public Job(String anEmployer, String someSkills) {
+    // Changed anEmployer from String ton Employer Class
+    // Changed someSkills to List of Skill Class
+    public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
         this.skills = someSkills;
     }
 
     // Getters and setters.
-    
-    public String getName() {
-        return name;
-    }
+    // Modified to use Employer Class and
+    // arrayList Skills Class
+    //
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmployer() {
+    // getEmployer returns Employer Class
+    public Employer getEmployer() {
         return employer;
     }
 
-    public void setEmployer(String employer) {
+    // setEmployer accepts Employer Class
+    public void setEmployer(Employer employer) {
         this.employer = employer;
     }
 
-    public String getSkills() {
+    // getSkills returns arrayList Skills Class
+    public Iterable<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
-        this.skills = skills;
+    // setSkills accepts arrayList Skills Class
+    public void setSkills(List<Skill> skills) {this.skills = skills;
     }
 
 }
